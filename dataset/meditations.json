@@ -1,0 +1,97 @@
+{
+    "source": "Meditations",
+    "author": "Marcus Aurelius",
+    "language": "Ancient Greek (translated)",
+    "category": "Stoic Philosophy",
+    "description": "Personal writings of Roman Emperor Marcus Aurelius on Stoic philosophy",
+    "meditations": [
+        {
+            "book": 2,
+            "entry": 1,
+            "text": "Begin each day by telling yourself: Today I shall be meeting with interference, ingratitude, insolence, disloyalty, ill-will, and selfishness.",
+            "category": "preparation",
+            "relevance": [
+                "expectations",
+                "resilience",
+                "acceptance"
+            ]
+        },
+        {
+            "book": 4,
+            "entry": 3,
+            "text": "You have power over your mind - not outside events. Realize this, and you will find strength.",
+            "category": "control",
+            "relevance": [
+                "inner-strength",
+                "focus",
+                "power"
+            ]
+        },
+        {
+            "book": 5,
+            "entry": 16,
+            "text": "Such as are your habitual thoughts, such also will be the character of your mind; for the soul is dyed by the thoughts.",
+            "category": "mindset",
+            "relevance": [
+                "thoughts",
+                "character",
+                "habits"
+            ]
+        },
+        {
+            "book": 8,
+            "entry": 36,
+            "text": "External things are not the problem. It's your assessment of them. Which you can erase right now.",
+            "category": "perception",
+            "relevance": [
+                "perspective",
+                "choice",
+                "freedom"
+            ]
+        },
+        {
+            "book": 6,
+            "entry": 6,
+            "text": "The best revenge is to be unlike him who performed the injury.",
+            "category": "virtue",
+            "relevance": [
+                "character",
+                "nobility",
+                "self-improvement"
+            ]
+        },
+        {
+            "book": 7,
+            "entry": 68,
+            "text": "If it is not right, do not do it; if it is not true, do not say it.",
+            "category": "integrity",
+            "relevance": [
+                "truth",
+                "action",
+                "principles"
+            ]
+        },
+        {
+            "book": 9,
+            "entry": 6,
+            "text": "Waste no more time arguing what a good man should be. Be one.",
+            "category": "action",
+            "relevance": [
+                "execution",
+                "practice",
+                "being"
+            ]
+        },
+        {
+            "book": 10,
+            "entry": 8,
+            "text": "The object of life is not to be on the side of the majority, but to escape finding oneself in the ranks of the insane.",
+            "category": "independence",
+            "relevance": [
+                "wisdom",
+                "discernment",
+                "individuality"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,702 @@
+[
+  {
+    "id": "GS-001",
+    "category": "Psychology",
+    "concept": "Core Principle 1",
+    "principle": "Key strategic principle number 1",
+    "explanation": "This entry explains strategic insight 1 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 1.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "GS-002",
+    "category": "Influence",
+    "concept": "Core Principle 2",
+    "principle": "Key strategic principle number 2",
+    "explanation": "This entry explains strategic insight 2 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 2.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "GS-003",
+    "category": "Strategy",
+    "concept": "Core Principle 3",
+    "principle": "Key strategic principle number 3",
+    "explanation": "This entry explains strategic insight 3 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 3.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "GS-004",
+    "category": "Power",
+    "concept": "Core Principle 4",
+    "principle": "Key strategic principle number 4",
+    "explanation": "This entry explains strategic insight 4 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 4.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "GS-005",
+    "category": "Strategy",
+    "concept": "Core Principle 5",
+    "principle": "Key strategic principle number 5",
+    "explanation": "This entry explains strategic insight 5 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 5.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "GS-006",
+    "category": "Leadership",
+    "concept": "Core Principle 6",
+    "principle": "Key strategic principle number 6",
+    "explanation": "This entry explains strategic insight 6 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 6.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "GS-007",
+    "category": "Power",
+    "concept": "Core Principle 7",
+    "principle": "Key strategic principle number 7",
+    "explanation": "This entry explains strategic insight 7 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 7.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "GS-008",
+    "category": "Power",
+    "concept": "Core Principle 8",
+    "principle": "Key strategic principle number 8",
+    "explanation": "This entry explains strategic insight 8 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 8.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "GS-009",
+    "category": "Influence",
+    "concept": "Core Principle 9",
+    "principle": "Key strategic principle number 9",
+    "explanation": "This entry explains strategic insight 9 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 9.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "GS-010",
+    "category": "Psychology",
+    "concept": "Core Principle 10",
+    "principle": "Key strategic principle number 10",
+    "explanation": "This entry explains strategic insight 10 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 10.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "GS-011",
+    "category": "Psychology",
+    "concept": "Core Principle 11",
+    "principle": "Key strategic principle number 11",
+    "explanation": "This entry explains strategic insight 11 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 11.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "GS-012",
+    "category": "Strategy",
+    "concept": "Core Principle 12",
+    "principle": "Key strategic principle number 12",
+    "explanation": "This entry explains strategic insight 12 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 12.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "GS-013",
+    "category": "Psychology",
+    "concept": "Core Principle 13",
+    "principle": "Key strategic principle number 13",
+    "explanation": "This entry explains strategic insight 13 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 13.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "GS-014",
+    "category": "Power",
+    "concept": "Core Principle 14",
+    "principle": "Key strategic principle number 14",
+    "explanation": "This entry explains strategic insight 14 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 14.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "GS-015",
+    "category": "Strategy",
+    "concept": "Core Principle 15",
+    "principle": "Key strategic principle number 15",
+    "explanation": "This entry explains strategic insight 15 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 15.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "GS-016",
+    "category": "Strategy",
+    "concept": "Core Principle 16",
+    "principle": "Key strategic principle number 16",
+    "explanation": "This entry explains strategic insight 16 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 16.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "GS-017",
+    "category": "Leadership",
+    "concept": "Core Principle 17",
+    "principle": "Key strategic principle number 17",
+    "explanation": "This entry explains strategic insight 17 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 17.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "GS-018",
+    "category": "Power",
+    "concept": "Core Principle 18",
+    "principle": "Key strategic principle number 18",
+    "explanation": "This entry explains strategic insight 18 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 18.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "GS-019",
+    "category": "Psychology",
+    "concept": "Core Principle 19",
+    "principle": "Key strategic principle number 19",
+    "explanation": "This entry explains strategic insight 19 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 19.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "GS-020",
+    "category": "Strategy",
+    "concept": "Core Principle 20",
+    "principle": "Key strategic principle number 20",
+    "explanation": "This entry explains strategic insight 20 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 20.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "GS-021",
+    "category": "Influence",
+    "concept": "Core Principle 21",
+    "principle": "Key strategic principle number 21",
+    "explanation": "This entry explains strategic insight 21 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 21.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "GS-022",
+    "category": "Psychology",
+    "concept": "Core Principle 22",
+    "principle": "Key strategic principle number 22",
+    "explanation": "This entry explains strategic insight 22 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 22.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "GS-023",
+    "category": "Influence",
+    "concept": "Core Principle 23",
+    "principle": "Key strategic principle number 23",
+    "explanation": "This entry explains strategic insight 23 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 23.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "GS-024",
+    "category": "Power",
+    "concept": "Core Principle 24",
+    "principle": "Key strategic principle number 24",
+    "explanation": "This entry explains strategic insight 24 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 24.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "GS-025",
+    "category": "Strategy",
+    "concept": "Core Principle 25",
+    "principle": "Key strategic principle number 25",
+    "explanation": "This entry explains strategic insight 25 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 25.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "GS-026",
+    "category": "Power",
+    "concept": "Core Principle 26",
+    "principle": "Key strategic principle number 26",
+    "explanation": "This entry explains strategic insight 26 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 26.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "GS-027",
+    "category": "Leadership",
+    "concept": "Core Principle 27",
+    "principle": "Key strategic principle number 27",
+    "explanation": "This entry explains strategic insight 27 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 27.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "GS-028",
+    "category": "Power",
+    "concept": "Core Principle 28",
+    "principle": "Key strategic principle number 28",
+    "explanation": "This entry explains strategic insight 28 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 28.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "GS-029",
+    "category": "Psychology",
+    "concept": "Core Principle 29",
+    "principle": "Key strategic principle number 29",
+    "explanation": "This entry explains strategic insight 29 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 29.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "GS-030",
+    "category": "Strategy",
+    "concept": "Core Principle 30",
+    "principle": "Key strategic principle number 30",
+    "explanation": "This entry explains strategic insight 30 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 30.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "GS-031",
+    "category": "Strategy",
+    "concept": "Core Principle 31",
+    "principle": "Key strategic principle number 31",
+    "explanation": "This entry explains strategic insight 31 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 31.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "GS-032",
+    "category": "Psychology",
+    "concept": "Core Principle 32",
+    "principle": "Key strategic principle number 32",
+    "explanation": "This entry explains strategic insight 32 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 32.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "GS-033",
+    "category": "Leadership",
+    "concept": "Core Principle 33",
+    "principle": "Key strategic principle number 33",
+    "explanation": "This entry explains strategic insight 33 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 33.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "GS-034",
+    "category": "Influence",
+    "concept": "Core Principle 34",
+    "principle": "Key strategic principle number 34",
+    "explanation": "This entry explains strategic insight 34 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 34.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "GS-035",
+    "category": "Strategy",
+    "concept": "Core Principle 35",
+    "principle": "Key strategic principle number 35",
+    "explanation": "This entry explains strategic insight 35 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 35.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "GS-036",
+    "category": "Power",
+    "concept": "Core Principle 36",
+    "principle": "Key strategic principle number 36",
+    "explanation": "This entry explains strategic insight 36 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 36.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "GS-037",
+    "category": "Leadership",
+    "concept": "Core Principle 37",
+    "principle": "Key strategic principle number 37",
+    "explanation": "This entry explains strategic insight 37 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 37.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "GS-038",
+    "category": "Psychology",
+    "concept": "Core Principle 38",
+    "principle": "Key strategic principle number 38",
+    "explanation": "This entry explains strategic insight 38 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 38.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "GS-039",
+    "category": "Strategy",
+    "concept": "Core Principle 39",
+    "principle": "Key strategic principle number 39",
+    "explanation": "This entry explains strategic insight 39 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 39.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "GS-040",
+    "category": "Psychology",
+    "concept": "Core Principle 40",
+    "principle": "Key strategic principle number 40",
+    "explanation": "This entry explains strategic insight 40 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 40.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "GS-041",
+    "category": "Strategy",
+    "concept": "Core Principle 41",
+    "principle": "Key strategic principle number 41",
+    "explanation": "This entry explains strategic insight 41 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 41.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "GS-042",
+    "category": "Strategy",
+    "concept": "Core Principle 42",
+    "principle": "Key strategic principle number 42",
+    "explanation": "This entry explains strategic insight 42 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 42.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "GS-043",
+    "category": "Power",
+    "concept": "Core Principle 43",
+    "principle": "Key strategic principle number 43",
+    "explanation": "This entry explains strategic insight 43 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 43.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "GS-044",
+    "category": "Strategy",
+    "concept": "Core Principle 44",
+    "principle": "Key strategic principle number 44",
+    "explanation": "This entry explains strategic insight 44 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 44.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "GS-045",
+    "category": "Leadership",
+    "concept": "Core Principle 45",
+    "principle": "Key strategic principle number 45",
+    "explanation": "This entry explains strategic insight 45 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 45.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "GS-046",
+    "category": "Psychology",
+    "concept": "Core Principle 46",
+    "principle": "Key strategic principle number 46",
+    "explanation": "This entry explains strategic insight 46 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 46.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "GS-047",
+    "category": "Power",
+    "concept": "Core Principle 47",
+    "principle": "Key strategic principle number 47",
+    "explanation": "This entry explains strategic insight 47 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 47.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "GS-048",
+    "category": "Strategy",
+    "concept": "Core Principle 48",
+    "principle": "Key strategic principle number 48",
+    "explanation": "This entry explains strategic insight 48 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 48.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "GS-049",
+    "category": "Strategy",
+    "concept": "Core Principle 49",
+    "principle": "Key strategic principle number 49",
+    "explanation": "This entry explains strategic insight 49 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 49.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "GS-050",
+    "category": "Strategy",
+    "concept": "Core Principle 50",
+    "principle": "Key strategic principle number 50",
+    "explanation": "This entry explains strategic insight 50 for leadership and power development.",
+    "modern_application": "Applied in business, politics and personal growth scenario 50.",
+    "skill_tags": [
+      "leadership",
+      "strategy",
+      "psychology"
+    ],
+    "difficulty": "Beginner"
+  }
+]

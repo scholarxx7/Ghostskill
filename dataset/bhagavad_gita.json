@@ -1,0 +1,118 @@
+{
+    "source": "Bhagavad Gita",
+    "language": "Sanskrit (translated)",
+    "category": "Philosophy & Warfare",
+    "description": "Ancient Indian scripture containing dialogue between Krishna and Arjuna on the battlefield",
+    "verses": [
+        {
+            "chapter": 2,
+            "verse": 47,
+            "text": "You have the right to work only, but never to its fruits. Let not the fruits of action be your motive, nor let your attachment be to inaction.",
+            "category": "duty",
+            "relevance": [
+                "decision-making",
+                "detachment",
+                "action"
+            ]
+        },
+        {
+            "chapter": 2,
+            "verse": 14,
+            "text": "The contact of the senses with their objects gives rise to cold and heat, pleasure and pain. They come and go and are impermanent. Endure them bravely.",
+            "category": "endurance",
+            "relevance": [
+                "discipline",
+                "stoicism",
+                "resilience"
+            ]
+        },
+        {
+            "chapter": 3,
+            "verse": 27,
+            "text": "All actions are performed by the modes of material nature. But in ignorance, the soul, deluded by false ego, thinks 'I am the doer.'",
+            "category": "ego",
+            "relevance": [
+                "self-awareness",
+                "humility",
+                "understanding"
+            ]
+        },
+        {
+            "chapter": 6,
+            "verse": 5,
+            "text": "Elevate yourself through the power of your mind, and not degrade yourself, for the mind can be the friend and also the enemy of the self.",
+            "category": "mind-control",
+            "relevance": [
+                "self-discipline",
+                "mental-strength",
+                "inner-work"
+            ]
+        },
+        {
+            "chapter": 2,
+            "verse": 56,
+            "text": "One whose mind remains undisturbed amidst misery, who does not crave for pleasure, and who is free from attachment, fear, and anger, is called a sage of steady wisdom.",
+            "category": "equanimity",
+            "relevance": [
+                "emotional-control",
+                "wisdom",
+                "steadiness"
+            ]
+        },
+        {
+            "chapter": 18,
+            "verse": 78,
+            "text": "Wherever there is Krishna, the Lord of Yoga, and Arjuna, the wielder of the bow, there will also be glory, victory, prosperity, and sound judgement.",
+            "category": "victory",
+            "relevance": [
+                "success",
+                "divine-guidance",
+                "righteousness"
+            ]
+        },
+        {
+            "chapter": 11,
+            "verse": 33,
+            "text": "Therefore, arise and attain glory. Conquer your enemies and enjoy a prosperous kingdom. I have already decreed their death; you are merely an instrument.",
+            "category": "action",
+            "relevance": [
+                "courage",
+                "destiny",
+                "leadership"
+            ]
+        },
+        {
+            "chapter": 4,
+            "verse": 7,
+            "text": "Whenever there is a decline in righteousness and an increase in unrighteousness, I manifest myself.",
+            "category": "righteousness",
+            "relevance": [
+                "justice",
+                "divine-intervention",
+                "dharma"
+            ]
+        },
+        {
+            "chapter": 16,
+            "verse": "1-3",
+            "text": "Fearlessness, purity of heart, steadfastness in knowledge and yoga, charity, self-control, sacrifice, study of scripture, austerity, uprightness, non-violence, truthfulness, absence of anger, renunciation, tranquility, aversion to fault-finding, compassion, absence of greed, gentleness, modesty, absence of fickleness.",
+            "category": "divine-qualities",
+            "relevance": [
+                "virtue",
+                "character",
+                "self-improvement"
+            ]
+        },
+        {
+            "chapter": 2,
+            "verse": "62-63",
+            "text": "While contemplating objects of the senses, one develops attachment to them. Attachment leads to desire, and from desire arises anger. From anger comes delusion, from delusion loss of memory, from loss of memory the destruction of intelligence, and from destruction of intelligence one perishes.",
+            "category": "downward-spiral",
+            "relevance": [
+                "self-control",
+                "awareness",
+                "consequences"
+            ]
+        }
+    ]
+}

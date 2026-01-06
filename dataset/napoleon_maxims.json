@@ -1,0 +1,96 @@
+{
+    "source": "Napoleon's Maxims",
+    "author": "Napoleon Bonaparte",
+    "language": "French (translated)",
+    "category": "Military Strategy & Leadership",
+    "description": "Military maxims and strategic principles from Napoleon Bonaparte",
+    "maxims": [
+        {
+            "number": 1,
+            "text": "The battlefield is a scene of constant chaos. The winner will be the one who controls that chaos, both his own and the enemy's.",
+            "category": "warfare",
+            "relevance": [
+                "chaos",
+                "control",
+                "victory"
+            ]
+        },
+        {
+            "number": 8,
+            "text": "A leader is a dealer in hope.",
+            "category": "leadership",
+            "relevance": [
+                "inspiration",
+                "morale",
+                "vision"
+            ]
+        },
+        {
+            "number": 13,
+            "text": "The art of war is simple: find the decisive point and strike it with overwhelming force.",
+            "category": "strategy",
+            "relevance": [
+                "focus",
+                "concentration",
+                "execution"
+            ]
+        },
+        {
+            "number": 23,
+            "text": "Speed is the essence of war. Take advantage of the enemy's unpreparedness; travel by unexpected routes and strike him where he has taken no precautions.",
+            "category": "speed",
+            "relevance": [
+                "timing",
+                "surprise",
+                "advantage"
+            ]
+        },
+        {
+            "number": 47,
+            "text": "Nothing is more important in war than unity of command.",
+            "category": "command",
+            "relevance": [
+                "authority",
+                "clarity",
+                "organization"
+            ]
+        },
+        {
+            "number": 64,
+            "text": "Impossible is a word to be found only in the dictionary of fools.",
+            "category": "determination",
+            "relevance": [
+                "possibility",
+                "will",
+                "achievement"
+            ]
+        },
+        {
+            "text": "In war, moral factors account for three-quarters, the balance of actual forces only for the other quarter.",
+            "category": "morale",
+            "relevance": [
+                "psychology",
+                "spirit",
+                "conviction"
+            ]
+        },
+        {
+            "text": "Ability is nothing without opportunity.",
+            "category": "opportunity",
+            "relevance": [
+                "timing",
+                "readiness",
+                "action"
+            ]
+        },
+        {
+            "text": "The strong man is the one who is able to intercept at will the communication between the senses and the mind.",
+            "category": "self-control",
+            "relevance": [
+                "discipline",
+                "mastery",
+                "focus"
+            ]
+        }
+    ]
+}

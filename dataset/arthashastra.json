@@ -1,0 +1,89 @@
+{
+    "source": "Arthashastra",
+    "author": "Chanakya (Kautilya)",
+    "language": "Sanskrit (translated)",
+    "category": "Politics & Strategy",
+    "description": "Ancient Indian treatise on statecraft, economic policy, and military strategy",
+    "teachings": [
+        {
+            "topic": "Strategy",
+            "text": "Before you start a war, be it with your enemy or with yourself, understand where power lies.",
+            "category": "warfare",
+            "relevance": [
+                "planning",
+                "power-dynamics",
+                "preparation"
+            ]
+        },
+        {
+            "topic": "Alliances",
+            "text": "The enemy of my enemy is my friend. Build alliances based on mutual interests, not emotions.",
+            "category": "diplomacy",
+            "relevance": [
+                "relationships",
+                "strategic-thinking",
+                "pragmatism"
+            ]
+        },
+        {
+            "topic": "Leadership",
+            "text": "A leader should keep his plans secret. Share them only when the time for execution is right.",
+            "category": "secrecy",
+            "relevance": [
+                "timing",
+                "discretion",
+                "execution"
+            ]
+        },
+        {
+            "topic": "Resource Management",
+            "text": "The treasury is the root of all prosperity. Without wealth, all other objectives become impossible.",
+            "category": "economics",
+            "relevance": [
+                "finance",
+                "resources",
+                "foundation"
+            ]
+        },
+        {
+            "topic": "Decision Making",
+            "text": "Never make important decisions when you are angry or desperate. Wait until your mind is clear.",
+            "category": "temperament",
+            "relevance": [
+                "emotional-control",
+                "patience",
+                "clarity"
+            ]
+        },
+        {
+            "topic": "Intelligence",
+            "text": "The wise leader employs spies to understand the intentions and capabilities of both enemies and allies.",
+            "category": "information",
+            "relevance": [
+                "intelligence",
+                "awareness",
+                "knowledge"
+            ]
+        },
+        {
+            "topic": "Strength",
+            "text": "Power is of three kinds: the power of counsel, the power of treasury, and the power of the military. The greatest of these is the power of counsel.",
+            "category": "power",
+            "relevance": [
+                "wisdom",
+                "strategy",
+                "influence"
+            ]
+        },
+        {
+            "topic": "Punishment",
+            "text": "The king who is slow in punishing becomes powerless. The king who is too quick in punishing becomes feared. The wise king balances mercy with firmness.",
+            "category": "justice",
+            "relevance": [
+                "balance",
+                "authority",
+                "fairness"
+            ]
+        }
+    ]
+}
