@@ -1,11 +1,13 @@
 import { Persona } from '../types';
+import { USE_OLLAMA } from './ollama/ollama.config';
+import { generateOllamaResponse } from './ollama/ollama.engine';
 
 // Configuration
 const PYTHON_API_URL = process.env.PYTHON_API_URL || 'http://localhost:8000';
 const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY || '';
 const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
 
-interface WisdomData {
+export interface WisdomData {
     source: string;
     text: string;
     reference?: string;
@@ -137,14 +139,26 @@ function generateWisdomOnlyResponse(persona: Persona, wisdom: WisdomData | null)
  */
 export const generateEnhancedResponse = async (
     persona: Persona,
-    userMessage: string
+    userMessage: string,
+    aiEngine?: 'gemini' | 'ollama' | 'nlp',
+    ollamaModel?: string
 ): Promise<string> => {
     try {
         // Fetch relevant wisdom from Python API
         const wisdom = await fetchRandomWisdom(persona.id);
 
-        // Generate response using Gemini API with wisdom context
-        return await generateGeminiResponse(persona, userMessage, wisdom);
+        if (aiEngine === 'nlp') {
+            return generateWisdomOnlyResponse(persona, wisdom);
+        } else if (aiEngine === 'ollama' || (aiEngine === undefined && USE_OLLAMA)) {
+            try {
+                return await generateOllamaResponse(persona, userMessage, wisdom, ollamaModel);
+            } catch (err) {
+                return generateWisdomOnlyResponse(persona, wisdom);
+            }
+        } else {
+            // Generate response using Gemini API with wisdom context
+            return await generateGeminiResponse(persona, userMessage, wisdom);
+        }
     } catch (error) {
         console.error('Error generating enhanced response:', error);
         return generateMockResponse(persona);
@@ -156,25 +170,11 @@ export const generateEnhancedResponse = async (
  */
 function getContextualAdvice(approach: string): string {
     const adviceMap: Record<string, string[]> = {
-        'strategic and calculated': [
-            'Before acting, consider all possible outcomes.',
-            'What information are you missing? Gather it before deciding.',
-            'Think three moves ahead - what are the second-order effects?'
-        ],
-        'bold and revolutionary': [
-            'What bold action have you been avoiding?',
-            'Sometimes the path requires courage over caution.',
-            'Lead by example - show don\'t tell.'
-        ],
-        'philosophical and disciplined': [
-            'What aspects of this can you control? Focus there.',
-            'How would your future self view this challenge?',
-            'Discipline your response, not the circumstance.'
-        ],
-        'tactical and decisive': [
-            'Identify the decisive point and concentrate your efforts.',
-            'Speed matters - act with the information you have.',
-            'What is your objective? Let that guide every decision.'
+        'strategic, bold, disciplined, and decisive': [
+            'Combine your strategic vision with resolute execution. Hesitation is the enemy.',
+            'What information are you missing? Gather it, structure it, then strike with undeniable force.',
+            'Think three moves ahead like a strategist, but remain emotionally unshakable like a stoic.',
+            'Identify the decisive point and concentrate your efforts completely.'
         ]
     };
 
@@ -186,30 +186,11 @@ function getContextualAdvice(approach: string): string {
  * Fallback mock responses
  */
 function generateMockResponse(persona: Persona): string {
-    const mockResponses: Record<string, string[]> = {
-        chanakya: [
-            "Before making any decision, consider the long-term consequences. Study all angles carefully.",
-            "The wise leader prepares for every outcome. What resources do you have?",
-            "In matters of strategy, patience is your greatest weapon."
-        ],
-        bose: [
-            "This situation demands courage and immediate action. Fear is the only enemy.",
-            "Freedom requires sacrifice. What are you willing to give up?",
-            "Lead from the front. Inspire through your actions."
-        ],
-        aurelius: [
-            "What aspect of this can you control? Focus your energy there.",
-            "Your perception shapes your reality. How do you choose to see this?",
-            "Discipline your mind first. External circumstances matter less."
-        ],
-        napoleon: [
-            "Analyze the terrain. Where are the weak points?",
-            "Speed and decisiveness win battles. Act boldly.",
-            "Find the decisive point and strike with overwhelming force."
-        ]
-    };
-
-    const responses = mockResponses[persona.id] || ["I will consider your question carefully."];
+    const responses = [
+        "In matters of strategy, patience is your greatest weapon, but courage fuels your execution.",
+        "Fear is the only enemy. Release what you cannot control, and prepare for every outcome.",
+        "Analyze the terrain, discipline your mind, and let your actions act as an overwhelming force."
+    ];
     return responses[Math.floor(Math.random() * responses.length)];
 }
 
@@ -218,12 +199,14 @@ function generateMockResponse(persona: Persona): string {
  */
 export const generateMultiPersonaResponse = async (
     personas: Persona[],
-    userMessage: string
+    userMessage: string,
+    aiEngine?: 'gemini' | 'ollama' | 'nlp',
+    ollamaModel?: string
 ): Promise<Array<{ personaId: string; response: string }>> => {
     const responses = await Promise.all(
         personas.map(async (persona) => ({
             personaId: persona.id,
-            response: await generateEnhancedResponse(persona, userMessage)
+            response: await generateEnhancedResponse(persona, userMessage, aiEngine, ollamaModel)
         }))
     );
 

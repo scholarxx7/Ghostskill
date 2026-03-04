@@ -2,78 +2,97 @@ import { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import { ChatRequest, ChatResponse, Message, PersonaResponse } from '../types';
 import { getPersonasByIds } from '../models/persona.model';
-import { generateMultiPersonaResponse } from '../utils/ai.service';import { chatLogger } from '../utils/chat-logger';
+import { generateMultiPersonaResponse } from '../utils/ai.service';
+import { chatLogger } from '../utils/chat-logger';
+import {
+    createConversation,
+    getConversationById,
+    addMessage,
+    getMessagesByConversation,
+} from '../database';
+
 /**
+ * POST /api/chat/message
  * Send a message and get responses from selected personas
  */
 export const sendMessage = async (req: Request, res: Response) => {
     try {
-        const { message, personaIds, conversationId }: ChatRequest = req.body;
+        console.log('Received chat request:', req.body);
+        const { message, personaIds, conversationId, aiEngine, ollamaModel }: ChatRequest = req.body;
 
         // Validation
         if (!message || !message.trim()) {
-            return res.status(400).json({
-                success: false,
-                error: 'Message is required'
-            });
+            return res.status(400).json({ success: false, error: 'Message is required' });
         }
-
         if (!personaIds || !Array.isArray(personaIds) || personaIds.length === 0) {
-            return res.status(400).json({
-                success: false,
-                error: 'At least one persona must be selected'
-            });
+            return res.status(400).json({ success: false, error: 'At least one persona must be selected' });
         }
 
         // Get persona data
         const personas = getPersonasByIds(personaIds);
         if (personas.length === 0) {
-            return res.status(404).json({
-                success: false,
-                error: 'No valid personas found'
-            });
+            return res.status(404).json({ success: false, error: 'No valid personas found' });
         }
 
-        // Create user message
+        // ── Resolve or create a DB conversation ──────────────────────────────
+        let conv = conversationId ? getConversationById(conversationId) : undefined;
+        if (!conv) {
+            conv = createConversation(aiEngine || 'ollama', ollamaModel);
+        }
+        const activeConversationId = conv.id;
+
+        // ── Persist the user message ──────────────────────────────────────────
+        const userDbMsg = addMessage(activeConversationId, 'user', message.trim());
+
+        // Build the Message shape the rest of the code expects
         const userMessage: Message = {
-            id: uuidv4(),
+            id: userDbMsg.id,
             type: 'user',
-            content: message.trim(),
-            timestamp: new Date()
+            content: userDbMsg.content,
+            timestamp: new Date(userDbMsg.created_at),
         };
 
-        // Generate AI responses
-        const aiResponses = await generateMultiPersonaResponse(personas, message);
+        // ── Generate AI responses ─────────────────────────────────────────────
+        const aiResponses = await generateMultiPersonaResponse(personas, message, aiEngine, ollamaModel);
 
-        // Format responses
-        const personaResponses: PersonaResponse[] = personas.map((persona, index) => ({
-            personaId: persona.id,
-            personaName: persona.name,
-            response: aiResponses[index].response,
-            color: persona.color
-        }));
+        // ── Format + persist each AI response ────────────────────────────────
+        const personaResponses: PersonaResponse[] = personas.map((persona, index) => {
+            const responseText = aiResponses[index].response;
 
-        // Return response
+            // Save to DB
+            addMessage(
+                activeConversationId,
+                'ai',
+                responseText,
+                persona.id,
+                persona.name
+            );
+
+            return {
+                personaId: persona.id,
+                personaName: persona.name,
+                response: responseText,
+                color: persona.color,
+            };
+        });
+
+        // ── Build and return response ─────────────────────────────────────────
         const response: ChatResponse = {
             success: true,
             data: {
                 userMessage,
                 aiResponses: personaResponses,
-                conversationId: conversationId || uuidv4()
-            }
+                conversationId: activeConversationId,
+            },
         };
 
-        // Log chat conversation (beta feature)
+        // Legacy file logger (keep if enabled)
         if (chatLogger.isEnabled()) {
             await chatLogger.logChat(
-                response.data.conversationId,
+                activeConversationId,
                 userMessage,
                 personaResponses,
-                {
-                    userAgent: req.headers['user-agent'],
-                    ip: req.ip,
-                    personaCount: personas.length
-                }
+                { userAgent: req.headers['user-agent'], ip: req.ip, personaCount: personas.length }
             );
         }
 
@@ -82,66 +101,56 @@ export const sendMessage = async (req: Request, res: Response) => {
         console.error('Error in sendMessage:', error);
         res.status(500).json({
             success: false,
-            error: 'Failed to process message'
+            error: error instanceof Error ? error.message : 'Failed to process message',
         });
     }
 };
 
 /**
- * Get conversation history (placeholder for future implementation)
+ * GET /api/chat/conversation/:conversationId
+ * Get full conversation history from SQLite
  */
 export const getConversationHistory = async (req: Request, res: Response) => {
     try {
         const { conversationId } = req.params;
 
-        // If logging is enabled, return from logs
-        if (chatLogger.isEnabled()) {
-            const session = await chatLogger.getSession(conversationId);
-            
-            if (session) {
-                return res.status(200).json({
-                    success: true,
-                    data: {
-                        conversationId,
-                        messages: session.messages.flatMap(log => [
-                            {
-                                id: log.userMessage.messageId,
-                                type: 'user',
-                                content: log.userMessage.content,
-                                timestamp: log.timestamp
-                            },
-                            ...log.aiResponses.map(ai => ({
-                                id: uuidv4(),
-                                type: 'ai',
-                                content: ai.response,
-                                personaId: ai.personaId,
-                                personaName: ai.personaName,
-                                timestamp: log.timestamp
-                            }))
-                        ]),
-                        totalMessages: session.totalMessages
-                    }
-                });
-            }
+        const conv = getConversationById(conversationId);
+        if (!conv) {
+            return res.status(404).json({ success: false, error: 'Conversation not found' });
         }
 
-        // This would fetch from database in production
+        const rows = getMessagesByConversation(conversationId);
+        const messages = rows.map(row => ({
+            id: row.id,
+            type: row.role,
+            content: row.content,
+            personaId: row.persona_id,
+            personaName: row.persona_name,
+            wisdomSource: row.wisdom_source,
+            timestamp: row.created_at,
+        }));
+
         res.status(200).json({
             success: true,
             data: {
                 conversationId,
-                messages: [],
-                message: 'Conversation history feature coming soon'
-            }
+                aiEngine: conv.ai_engine,
+                ollamaModel: conv.ollama_model,
+                startedAt: conv.started_at,
+                messages,
+                totalMessages: messages.length,
+            },
         });
     } catch (error) {
         console.error('Error in getConversationHistory:', error);
-        res.status(500).json({
-            success: false,
-            error: 'Failed to fetch conversation history'
-        });
+        res.status(500).json({ success: false, error: 'Failed to fetch conversation history' });
     }
 };
+
+
+
+
+
 
 /**
  * Developer endpoint: Get all logged sessions

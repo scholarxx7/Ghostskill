@@ -10,86 +10,35 @@ interface Message {
     content: string;
     persona?: string;
     timestamp: Date;
+    wisdomSource?: string; // We can attach wisdom context if we want UI to reflect it
 }
 
-interface PersonaResponse {
-    personaId: string;
-    personaName: string;
-    response: string;
-    color: string;
-}
-
-const personasData: Record<string, any> = {
-    chanakya: {
-        name: "Chanakya",
-        color: "from-amber-500 to-orange-600",
-        approach: "strategic and calculated",
-    },
-    bose: {
-        name: "Subhas Chandra Bose",
-        color: "from-emerald-500 to-teal-600",
-        approach: "bold and revolutionary",
-    },
-    aurelius: {
-        name: "Marcus Aurelius",
-        color: "from-blue-500 to-indigo-600",
-        approach: "philosophical and disciplined",
-    },
-    napoleon: {
-        name: "Napoleon Bonaparte",
-        color: "from-purple-500 to-violet-600",
-        approach: "tactical and decisive",
-    },
+// Single Persona Data
+const theFriend = {
+    id: "friend",
+    name: "The Friend",
+    color: "from-blue-500 to-purple-600",
+    approach: "strategic, bold, disciplined, and decisive",
 };
 
-// Mock AI responses (in real app, this would call an AI API)
-const generateMockResponse = (personaId: string, question: string): string => {
-    const responses: Record<string, string[]> = {
-        chanakya: [
-            "Before making any decision, consider the long-term consequences. What appears beneficial today may prove harmful tomorrow. Study all sides carefully.",
-            "The wise leader prepares for every outcome. Your challenge requires strategic analysis. What resources do you have, and who are your real allies?",
-            "In matters of strategy, patience is your greatest weapon. Do not rush to action until you understand all variables at play.",
-        ],
-        bose: [
-            "This situation demands courage and immediate action. Fear is the only enemy. What bold step have you been avoiding?",
-            "Freedom requires sacrifice. What are you willing to give up to achieve your goal? Hesitation is the enemy of progress.",
-            "Lead from the front. Show others the way through your actions, not just your words. Inspire through example.",
-        ],
-        aurelius: [
-            "What aspect of this situation can you control? Focus your energy there. Release what lies beyond your influence.",
-            "Your perception shapes your reality. How would you view this challenge if you saw it as an opportunity for growth?",
-            "Discipline your mind first. External circumstances matter less than your internal response to them.",
-        ],
-        napoleon: [
-            "Analyze the terrain of your situation. Where are the weak points? Where can you concentrate your force for maximum impact?",
-            "Speed and decisiveness win battles. Once you have sufficient information, act boldly. Hesitation creates vulnerability.",
-            "Every challenge is a battlefield. What is your objective? What are your resources? Now execute with precision.",
-        ],
-    };
-
-    const personaResponses = responses[personaId] || ["I will consider your question carefully."];
-    return personaResponses[Math.floor(Math.random() * personaResponses.length)];
+// Mock AI responses for fallback
+const generateMockResponse = (question: string): string => {
+    const responses = [
+        "Draw upon your discipline. You must plan ten steps ahead, but execute the very next step with overwhelming force.",
+        "Fear is the only enemy here. Release what you cannot control, and attack the decisive point immediately.",
+        "Your strategic foresight is required. Understand the terrain, control your mind, and the victory is yours.",
+        "Before making a move, consider: Are you acting out of emotion or logic? Emulate the stoics, but strike like a conqueror."
+    ];
+    return responses[Math.floor(Math.random() * responses.length)];
 };
 
 export default function TrainingRoom() {
     const [messages, setMessages] = useState<Message[]>([]);
     const [input, setInput] = useState("");
-    const [selectedPersonas, setSelectedPersonas] = useState<string[]>([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [personaResponses, setPersonaResponses] = useState<PersonaResponse[]>([]);
+    const [aiEngine, setAiEngine] = useState<'gemini' | 'ollama' | 'nlp'>('ollama');
+    const [ollamaModel, setOllamaModel] = useState<string>('llama3.2:latest');
     const messagesEndRef = useRef<HTMLDivElement>(null);
-    const router = useRouter();
-
-    useEffect(() => {
-        // Get selected personas from localStorage
-        const stored = localStorage.getItem("selectedPersonas");
-        if (stored) {
-            setSelectedPersonas(JSON.parse(stored));
-        } else {
-            // Default to Chanakya if none selected
-            setSelectedPersonas(["chanakya"]);
-        }
-    }, []);
 
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -111,7 +60,7 @@ export default function TrainingRoom() {
         setIsLoading(true);
 
         try {
-            // Call the real backend API
+            // Call the real backend API, targeting 'friend'
             const response = await fetch('http://localhost:5000/api/chat/message', {
                 method: 'POST',
                 headers: {
@@ -119,7 +68,9 @@ export default function TrainingRoom() {
                 },
                 body: JSON.stringify({
                     message: currentInput,
-                    personaIds: selectedPersonas
+                    personaIds: ['friend'],
+                    aiEngine,
+                    ollamaModel: aiEngine === 'ollama' ? ollamaModel : undefined
                 })
             });
 
@@ -129,55 +80,34 @@ export default function TrainingRoom() {
 
             const data = await response.json();
 
-            if (data.success && data.data.aiResponses) {
-                const responses: PersonaResponse[] = data.data.aiResponses.map((resp: any) => ({
-                    personaId: resp.personaId,
-                    personaName: resp.personaName,
-                    response: resp.response,
-                    color: personasData[resp.personaId]?.color || "from-gray-500 to-gray-600",
-                }));
+            if (data.success && data.data.aiResponses && data.data.aiResponses.length > 0) {
+                const resp = data.data.aiResponses[0];
 
-                setPersonaResponses(responses);
-
-                // Add AI responses to messages with stagger
-                responses.forEach((resp, index) => {
-                    setTimeout(() => {
-                        const aiMessage: Message = {
-                            id: `${Date.now()}-${index}`,
-                            type: "ai",
-                            content: resp.response,
-                            persona: resp.personaName,
-                            timestamp: new Date(),
-                        };
-                        setMessages((prev) => [...prev, aiMessage]);
-                    }, index * 300);
-                });
-            }
-        } catch (error) {
-            console.error('Error calling API:', error);
-
-            // Fallback to mock responses if API fails
-            const responses: PersonaResponse[] = selectedPersonas.map((personaId) => ({
-                personaId,
-                personaName: personasData[personaId].name,
-                response: generateMockResponse(personaId, currentInput),
-                color: personasData[personaId].color,
-            }));
-
-            setPersonaResponses(responses);
-
-            responses.forEach((resp, index) => {
                 setTimeout(() => {
                     const aiMessage: Message = {
-                        id: `${Date.now()}-${index}`,
+                        id: `ai-${Date.now()}`,
                         type: "ai",
                         content: resp.response,
                         persona: resp.personaName,
                         timestamp: new Date(),
                     };
                     setMessages((prev) => [...prev, aiMessage]);
-                }, index * 300);
-            });
+                }, 400); // slight stagger for realism
+            }
+        } catch (error) {
+            console.error('Error calling API:', error);
+
+            // Fallback to mock responses if API fails
+            setTimeout(() => {
+                const aiMessage: Message = {
+                    id: `ai-${Date.now()}`,
+                    type: "ai",
+                    content: generateMockResponse(currentInput),
+                    persona: "The Friend",
+                    timestamp: new Date(),
+                };
+                setMessages((prev) => [...prev, aiMessage]);
+            }, 500);
         } finally {
             setIsLoading(false);
         }
@@ -191,192 +121,202 @@ export default function TrainingRoom() {
     };
 
     return (
-        <div className="min-h-screen bg-[#0a0a0f] text-white">
-            {/* Animated background */}
-            <div className="fixed inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-indigo-900/20 via-transparent to-transparent blur-3xl animate-float" />
+        <div className="min-h-screen bg-[#06060a] text-white font-sans flex flex-col">
+            {/* Ambient Background */}
+            <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+                <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-600/10 blur-[120px] rounded-full animate-pulse" style={{ animationDuration: '10s' }} />
+                <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/10 blur-[120px] rounded-full animate-pulse" style={{ animationDuration: '12s', animationDelay: '1s' }} />
             </div>
 
             {/* Navigation */}
-            <nav className="relative z-10 px-6 py-4 lg:px-8 border-b border-white/10">
+            <nav className="relative z-10 px-6 py-4 lg:px-8 border-b border-white/5 backdrop-blur-md">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
-                    <Link href="/" className="text-xl font-bold gradient-text">
-                        GhostSkill
+                    <Link href="/" className="flex items-center gap-3 group">
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform">
+                            <span className="font-bold text-sm">G</span>
+                        </div>
+                        <span className="text-xl font-bold tracking-tight text-white group-hover:text-indigo-200 transition-colors">GhostSkill</span>
                     </Link>
+
                     <div className="flex items-center gap-4">
-                        <Link
-                            href="/persona-selection"
-                            className="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-lg border border-white/10 transition-all text-sm"
-                        >
-                            Change Personas
-                        </Link>
+                        <div className="flex items-center gap-2 bg-[#0a0a0f]/80 p-1.5 rounded-full border border-white/5 backdrop-blur-md">
+                            <div className="relative">
+                                <select
+                                    value={aiEngine}
+                                    onChange={(e) => setAiEngine(e.target.value as 'gemini' | 'ollama' | 'nlp')}
+                                    className="bg-transparent border-none pl-4 pr-8 py-1.5 text-sm focus:outline-none appearance-none cursor-pointer font-medium hover:text-indigo-300 transition-colors"
+                                >
+                                    <option value="ollama" className="bg-[#0a0a0f]">🤖 Local Ollama</option>
+                                    <option value="gemini" className="bg-[#0a0a0f]">⚡ Google Gemini</option>
+                                    <option value="nlp" className="bg-[#0a0a0f]">📚 Wisdom Only (NLP)</option>
+                                </select>
+                                <svg className="w-3.5 h-3.5 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+
+                            {aiEngine === 'ollama' && (
+                                <>
+                                    <div className="w-[1px] h-4 bg-white/20"></div>
+                                    <div className="relative">
+                                        <select
+                                            value={ollamaModel}
+                                            onChange={(e) => setOllamaModel(e.target.value)}
+                                            className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-full pl-3 pr-8 py-1 text-xs focus:outline-none focus:border-indigo-500 appearance-none cursor-pointer transition-colors text-indigo-200"
+                                        >
+                                            <option value="llama3.2:latest" className="bg-[#0a0a0f]">llama3.2</option>
+                                            <option value="phi3:latest" className="bg-[#0a0a0f]">phi3</option>
+                                            <option value="gemma3:4b" className="bg-[#0a0a0f]">gemma3:4b</option>
+                                            <option value="qwen3:4b" className="bg-[#0a0a0f]">qwen3:4b</option>
+                                        </select>
+                                        <svg className="w-3 h-3 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                                    </div>
+                                </>
+                            )}
+                        </div>
                         <Link
                             href="/reflection"
-                            className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 rounded-lg transition-all text-sm"
+                            className="hidden sm:inline-flex px-5 py-2 bg-white/5 hover:bg-white/10 rounded-full border border-white/5 transition-all text-sm font-medium hover:border-white/20"
                         >
-                            Reflect
+                            Reflection Journal
                         </Link>
                     </div>
                 </div>
             </nav>
 
-            {/* Main Content - Two Column Layout */}
-            <div className="relative z-10 h-[calc(100vh-100px)] flex flex-col lg:flex-row">
-                {/* Left: Chat Interface */}
-                <div className="flex-1 flex flex-col border-r border-white/10">
-                    {/* Messages Area */}
-                    <div className="flex-1 overflow-y-auto px-6 py-6 space-y-4">
-                        {messages.length === 0 && (
-                            <div className="h-full flex items-center justify-center">
-                                <div className="text-center max-w-md">
-                                    <h3 className="text-2xl font-bold mb-3">Training Room</h3>
-                                    <p className="text-gray-400 mb-6">
-                                        Ask your challenge, dilemma, or strategic question. Your selected mentors will guide you.
-                                    </p>
-                                    <div className="flex flex-wrap gap-2 justify-center mb-6">
-                                        {selectedPersonas.map((id) => (
-                                            <span
-                                                key={id}
-                                                className={`px-3 py-1 bg-gradient-to-r ${personasData[id].color} rounded-lg text-sm font-semibold`}
-                                            >
-                                                {personasData[id].name}
-                                            </span>
-                                        ))}
-                                    </div>
-                                    {/* Gemini AI Badge */}
-                                    <div className="flex items-center justify-center gap-2 text-sm">
-                                        <div className="px-3 py-1.5 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full border border-blue-400/30 flex items-center gap-2">
-                                            <span className="text-xl">🤖</span>
-                                            <span className="text-blue-300">Powered by Google Gemini AI</span>
-                                        </div>
-                                        <span className="text-gray-500">+</span>
-                                        <div className="px-3 py-1.5 bg-gradient-to-r from-amber-500/20 to-orange-500/20 rounded-full border border-amber-400/30 flex items-center gap-2">
-                                            <span className="text-lg">📚</span>
-                                            <span className="text-amber-300">Ancient Wisdom</span>
-                                        </div>
-                                    </div>
+            {/* Main Chat Area */}
+            <main className="relative z-10 flex-1 flex flex-col max-w-4xl mx-auto w-full pt-6 pb-2">
+                <div className="flex-1 overflow-y-auto px-4 sm:px-6 space-y-6 fancy-scrollbar">
+
+                    {messages.length === 0 && (
+                        <div className="h-full flex flex-col items-center justify-center text-center px-4 animate-in fade-in duration-700 slide-in-from-bottom-8">
+                            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 p-[1px] mb-8 shadow-[0_0_50px_rgba(99,102,241,0.3)]">
+                                <div className="w-full h-full rounded-full bg-[#06060a] flex items-center justify-center text-4xl font-bold">
+                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">F</span>
                                 </div>
                             </div>
-                        )}
+                            <h2 className="text-3xl font-bold mb-3 tracking-tight">The Training Room</h2>
+                            <p className="text-gray-400 max-w-lg mx-auto text-lg leading-relaxed mb-10">
+                                You are consulting with <span className="text-indigo-300 font-medium">The Friend</span>. State your challenge clearly, and receive synthesized wisdom from history's most brilliant strategists.
+                            </p>
 
-                        {messages.map((message) => (
-                            <div
-                                key={message.id}
-                                className={`flex ${message.type === "user" ? "justify-end" : "justify-start"}`}
-                            >
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-2xl text-left">
+                                {[
+                                    "I need to make a highly risky career pivot.",
+                                    "My team lacks discipline and motivation.",
+                                    "I feel overwhelmed by circumstances I can't control.",
+                                    "How do I outmaneuver a well-funded competitor?"
+                                ].map((suggestion, i) => (
+                                    <button
+                                        key={i}
+                                        onClick={() => setInput(suggestion)}
+                                        className="p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-indigo-500/30 transition-all text-sm text-gray-300 hover:text-white"
+                                    >
+                                        <span className="opacity-50 mr-2">→</span> {suggestion}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {messages.map((message) => (
+                        <div
+                            key={message.id}
+                            className={`flex ${message.type === "user" ? "justify-end" : "justify-start"} animate-in fade-in slide-in-from-bottom-4 duration-500`}
+                        >
+                            <div className={`flex max-w-[85%] sm:max-w-[75%] ${message.type === "ai" ? "gap-4" : ""}`}>
+                                {message.type === "ai" && (
+                                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex-shrink-0 flex items-center justify-center text-sm font-bold shadow-lg mt-1">
+                                        F
+                                    </div>
+                                )}
                                 <div
-                                    className={`max-w-[70%] px-5 py-3 rounded-2xl ${message.type === "user"
-                                        ? "bg-gradient-to-r from-indigo-600 to-violet-600"
-                                        : "card-gradient"
+                                    className={`px-5 py-4 rounded-3xl ${message.type === "user"
+                                        ? "bg-indigo-600 text-white rounded-tr-sm shadow-[0_4px_20px_rgba(79,70,229,0.3)]"
+                                        : "bg-white/5 border border-white/10 rounded-tl-sm backdrop-blur-md"
                                         }`}
                                 >
-                                    {message.persona && (
-                                        <div className="text-xs font-semibold text-indigo-400 mb-1">
-                                            {message.persona}
+                                    {message.type === "ai" && (
+                                        <div className="text-xs font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 mb-1.5 flex items-center gap-2">
+                                            The Friend
+                                            <span className="text-gray-500 font-normal text-[10px]">Historical Synthesis</span>
                                         </div>
                                     )}
-                                    <p className="leading-relaxed">{message.content}</p>
+                                    <p className="leading-relaxed whitespace-pre-wrap text-[15px]">{message.content}</p>
                                 </div>
                             </div>
-                        ))}
+                        </div>
+                    ))}
 
-                        {isLoading && (
-                            <div className="flex justify-start">
-                                <div className="card-gradient px-5 py-3 rounded-2xl">
-                                    <div className="flex gap-2">
-                                        <div className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce" />
-                                        <div className="w-2 h-2 bg-violet-500 rounded-full animate-bounce" style={{ animationDelay: "0.1s" }} />
-                                        <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce" style={{ animationDelay: "0.2s" }} />
+                    {isLoading && (
+                        <div className="flex justify-start animate-in fade-in duration-300">
+                            <div className="flex gap-4 max-w-[80%]">
+                                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex-shrink-0 flex items-center justify-center text-sm font-bold shadow-lg mt-1 opacity-50">
+                                    F
+                                </div>
+                                <div className="bg-white/5 border border-white/10 px-5 py-4 rounded-3xl rounded-tl-sm backdrop-blur-md flex items-center h-[52px]">
+                                    <div className="flex gap-1.5">
+                                        <div className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce" />
+                                        <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: "0.15s" }} />
+                                        <div className="w-2 h-2 bg-violet-400 rounded-full animate-bounce" style={{ animationDelay: "0.3s" }} />
                                     </div>
-                                </div>
-                            </div>
-                        )}
-
-                        <div ref={messagesEndRef} />
-                    </div>
-
-                    {/* Input Area */}
-                    <div className="p-6 border-t border-white/10">
-                        <div className="flex gap-3">
-                            <textarea
-                                value={input}
-                                onChange={(e) => setInput(e.target.value)}
-                                onKeyPress={handleKeyPress}
-                                placeholder="Describe your challenge or ask a strategic question..."
-                                className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 resize-none focus:outline-none focus:border-indigo-500 transition-colors"
-                                rows={3}
-                            />
-                            <button
-                                onClick={handleSendMessage}
-                                disabled={!input.trim() || isLoading}
-                                className="px-6 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed font-semibold"
-                            >
-                                Send
-                            </button>
-                        </div>
-                        {/* AI Status Indicator */}
-                        <div className="mt-3 flex items-center justify-center gap-3 text-xs text-gray-500">
-                            <div className="flex items-center gap-1.5">
-                                <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-                                <span>AI Active</span>
-                            </div>
-                            <span>•</span>
-                            <span>🤖 Google Gemini</span>
-                            <span>•</span>
-                            <span>📚 {selectedPersonas.length} Wisdom {selectedPersonas.length === 1 ? 'Source' : 'Sources'}</span>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Right: Mindset Switch Panel */}
-                <div className="lg:w-96 bg-[#13131a]/50 backdrop-blur-sm p-6 overflow-y-auto">
-                    <div className="mb-6">
-                        <h3 className="text-2xl font-bold gradient-text mb-2">Mindset Perspectives</h3>
-                        <div className="flex items-center gap-2">
-                            <span className="text-xs px-2 py-1 bg-emerald-500/20 text-emerald-400 rounded-full border border-emerald-500/30">
-                                📚 Real Ancient Wisdom
-                            </span>
-                            <span className="text-xs text-gray-500">
-                                From {selectedPersonas.length} {selectedPersonas.length === 1 ? 'source' : 'sources'}
-                            </span>
-                        </div>
-                    </div>
-
-                    {personaResponses.length === 0 ? (
-                        <div className="text-center text-gray-500 py-12">
-                            <p>Persona responses will appear here after you send a message</p>
-                        </div>
-                    ) : (
-                        <div className="space-y-4">
-                            {personaResponses.map((resp) => (
-                                <div key={resp.personaId} className="card-gradient p-4 rounded-xl">
-                                    <div className="flex items-center gap-3 mb-3">
-                                        <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${resp.color} flex items-center justify-center font-bold text-sm`}>
-                                            {resp.personaName.charAt(0)}
-                                        </div>
-                                        <div>
-                                            <div className="font-semibold">{resp.personaName}</div>
-                                            <div className="text-xs text-gray-500">Ancient Wisdom</div>
-                                        </div>
-                                    </div>
-                                    <p className="text-gray-300 text-sm leading-relaxed">{resp.response}</p>
-                                </div>
-                            ))}
-
-                            {/* Key Insight Summary */}
-                            <div className="mt-6 p-5 bg-gradient-to-r from-indigo-600/20 to-violet-600/20 rounded-xl border border-indigo-500/30">
-                                <h4 className="font-bold text-indigo-400 mb-2">🔑 Key Insight</h4>
-                                <p className="text-sm text-gray-300 mb-3">
-                                    Compare these different perspectives. What common themes emerge? What unique approaches stand out?
-                                </p>
-                                <div className="text-xs text-indigo-300/70">
-                                    💡 These responses incorporate wisdom from 7 traditional texts spanning 2,300+ years
                                 </div>
                             </div>
                         </div>
                     )}
+                    <div ref={messagesEndRef} className="h-4" />
                 </div>
-            </div>
+
+                {/* Input Area */}
+                <div className="px-4 sm:px-6 py-4 bg-gradient-to-t from-[#06060a] to-transparent sticky bottom-0">
+                    <div className="relative group">
+                        <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-3xl blur opacity-20 group-focus-within:opacity-40 transition-opacity duration-500"></div>
+                        <div className="relative flex items-end gap-2 bg-[#0a0a0f] border border-white/10 rounded-3xl py-2 px-3 focus-within:border-indigo-500/50 transition-colors shadow-2xl">
+                            <textarea
+                                value={input}
+                                onChange={(e) => setInput(e.target.value)}
+                                onKeyPress={handleKeyPress}
+                                placeholder="Consult The Friend..."
+                                className="flex-1 bg-transparent px-3 py-3 resize-none focus:outline-none max-h-32 min-h-[52px] text-[15px] placeholder:text-gray-600 fancy-scrollbar"
+                                rows={1}
+                            />
+                            <button
+                                onClick={handleSendMessage}
+                                disabled={!input.trim() || isLoading}
+                                className="mb-1 p-3 bg-white/10 hover:bg-white/20 text-white rounded-2xl transition-all disabled:opacity-30 disabled:cursor-not-allowed group/btn"
+                                aria-label="Send message"
+                            >
+                                <svg className="w-5 h-5 text-indigo-300 group-hover/btn:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Status Footer */}
+                    <div className="mt-4 flex items-center justify-center gap-3 text-[11px] font-medium text-gray-500">
+                        <div className="flex items-center gap-1.5">
+                            <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.6)]"></div>
+                            <span>Engine: {aiEngine.toUpperCase()} {aiEngine === 'ollama' ? `(${ollamaModel})` : ''}</span>
+                        </div>
+                        <span className="opacity-40">•</span>
+                        <span>4 Minds Synthesized</span>
+                    </div>
+                </div>
+            </main>
+
+            {/* Custom Styles for this page */}
+            <style jsx global>{`
+                .fancy-scrollbar::-webkit-scrollbar {
+                    width: 6px;
+                }
+                .fancy-scrollbar::-webkit-scrollbar-track {
+                    background: transparent;
+                }
+                .fancy-scrollbar::-webkit-scrollbar-thumb {
+                    background: rgba(255, 255, 255, 0.1);
+                    border-radius: 10px;
+                }
+                .fancy-scrollbar::-webkit-scrollbar-thumb:hover {
+                    background: rgba(255, 255, 255, 0.2);
+                }
+            `}</style>
         </div>
     );
 }

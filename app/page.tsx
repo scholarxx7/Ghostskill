@@ -3,53 +3,21 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
-// Persona data
-const personas = [
-    {
-        id: "chanakya",
-        name: "Chanakya",
-        tagline: "Strategy & Statecraft",
-        description: "Ancient Indian philosopher and strategist",
-        color: "from-amber-500 to-orange-600",
-    },
-    {
-        id: "bose",
-        name: "Subhas Chandra Bose",
-        tagline: "Courage & Revolution",
-        description: "Indian revolutionary and freedom fighter",
-        color: "from-emerald-500 to-teal-600",
-    },
-    {
-        id: "aurelius",
-        name: "Marcus Aurelius",
-        tagline: "Discipline & Inner Strength",
-        description: "Roman emperor and Stoic philosopher",
-        color: "from-blue-500 to-indigo-600",
-    },
-    {
-        id: "napoleon",
-        name: "Napoleon Bonaparte",
-        tagline: "Execution & War Strategy",
-        description: "French military genius and emperor",
-        color: "from-purple-500 to-violet-600",
-    },
-];
-
 const steps = [
     {
         number: "01",
-        title: "Select Persona",
-        description: "Choose one or more historical figures to guide your thinking",
+        title: "Present Your Challenge",
+        description: "Submit a real-world dilemma, strategy, or obstacle you are currently facing.",
     },
     {
         number: "02",
-        title: "Ask Your Challenge",
-        description: "Present your real-world problem or decision",
+        title: "Engage the Ultimate Mind",
+        description: "Your companion instantly combines the strategic foresight of Chanakya, the courage of Bose, the discipline of Aurelius, and the execution of Napoleon.",
     },
     {
         number: "03",
-        title: "Switch Mindsets & Learn",
-        description: "Compare perspectives and build mental frameworks",
+        title: "Achieve Unmatched Clarity",
+        description: "Extract actionable, battle-tested wisdom from history's most brilliant minds.",
     },
 ];
 
@@ -61,144 +29,158 @@ export default function Home() {
     }, []);
 
     return (
-        <div className="min-h-screen bg-[#0a0a0f] text-white overflow-hidden">
-            {/* Animated background */}
-            <div className="fixed inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-indigo-900/20 via-transparent to-transparent blur-3xl animate-float" />
-                <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-to-tl from-violet-900/20 via-transparent to-transparent blur-3xl animate-float" style={{ animationDelay: "1s" }} />
+        <div className="min-h-screen bg-[#06060a] text-white selection:bg-indigo-500/30 overflow-hidden font-sans">
+            {/* Ambient Background Glows */}
+            <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+                <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-indigo-600/10 blur-[120px] rounded-full animate-pulse" style={{ animationDuration: '8s' }} />
+                <div className="absolute right-[-10%] bottom-[-20%] w-[50%] h-[50%] bg-violet-600/10 blur-[120px] rounded-full animate-pulse" style={{ animationDuration: '12s', animationDelay: '2s' }} />
             </div>
 
             {/* Navigation */}
-            <nav className="relative z-10 px-6 py-6 lg:px-12">
+            <nav className="relative z-10 px-6 py-6 lg:px-12 backdrop-blur-md border-b border-white/5 sticky top-0">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
-                    <div className="text-2xl font-bold gradient-text">GhostSkill</div>
-                    <div className="flex gap-4">
-                        <Link
-                            href="/datasets"
-                            className="px-6 py-2 bg-white/5 hover:bg-white/10 rounded-lg border border-white/10 transition-all duration-300 hover:border-white/20"
-                        >
-                            Datasets
-                        </Link>
+                    <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+                            <span className="font-bold text-sm">G</span>
+                        </div>
+                        <span className="text-xl font-bold tracking-tight text-white">GhostSkill</span>
+                    </div>
+                    <div className="flex gap-3">
                         <Link
                             href="/dashboard"
-                            className="px-6 py-2 bg-white/5 hover:bg-white/10 rounded-lg border border-white/10 transition-all duration-300 hover:border-white/20"
+                            className="px-5 py-2.5 bg-white/5 hover:bg-white/10 rounded-full border border-white/5 hover:border-white/10 transition-all duration-300 text-sm font-medium"
                         >
                             Dashboard
+                        </Link>
+                        <Link
+                            href="/training"
+                            className="px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 rounded-full shadow-lg shadow-indigo-500/25 transition-all duration-300 text-sm font-medium"
+                        >
+                            Enter Room
                         </Link>
                     </div>
                 </div>
             </nav>
 
             {/* Hero Section */}
-            <section className="relative z-10 px-6 py-20 lg:py-32 lg:px-12">
-                <div className="max-w-6xl mx-auto text-center">
-                    <h1
-                        className={`text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight transition-opacity duration-1000 ${mounted ? "opacity-100" : "opacity-0"
-                            }`}
-                    >
-                        Train Your Mind With{" "}
-                        <span className="gradient-text">History's Greatest Thinkers</span>
+            <section className="relative z-10 px-6 py-24 lg:py-36 lg:px-12 flex flex-col items-center justify-center min-h-[80vh]">
+                <div className="max-w-5xl mx-auto text-center">
+                    <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-sm font-medium mb-8 transition-all duration-1000 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+                        <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
+                        Powered by Advanced AI & Ancient Wisdom
+                    </div>
+
+                    <h1 className={`text-6xl md:text-8xl font-extrabold mb-8 tracking-tight transition-all duration-1000 delay-100 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+                        Think like a <br className="hidden md:block" />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-violet-400">
+                            Visionary.
+                        </span>
                     </h1>
 
-                    <p className={`text-xl md:text-2xl text-gray-400 mb-12 max-w-3xl mx-auto transition-all duration-1000 delay-200 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-                        }`}>
-                        We don't teach information. We train thinking.
+                    <p className={`text-xl md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed transition-all duration-1000 delay-200 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+                        A singular AI companion forged from the greatest strategic, stoic, and revolutionary minds in history.
                     </p>
 
-                    <div className={`flex flex-col sm:flex-row gap-6 justify-center items-center transition-all duration-1000 delay-400 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-                        }`}>
-                        <Link href="/persona-selection" className="btn-primary">
-                            Start Training
-                        </Link>
-                        <Link href="/training" className="btn-secondary">
-                            Try Demo
+                    <div className={`flex justify-center transition-all duration-1000 delay-300 ${mounted ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-4 scale-95"}`}>
+                        <Link
+                            href="/training"
+                            className="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white transition-all duration-200 bg-indigo-600 rounded-full overflow-hidden hover:bg-indigo-500"
+                        >
+                            <span className="relative flex items-center gap-2 z-10">
+                                Initiate Training Session
+                                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                            </span>
+                            <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-violet-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                         </Link>
                     </div>
                 </div>
             </section>
 
-            {/* Personas Section */}
-            <section className="relative z-10 px-6 py-20 lg:px-12">
-                <div className="max-w-7xl mx-auto">
-                    <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
-                        Meet Your <span className="gradient-text">AI Mentors</span>
+            {/* Ultimate Companion Showcase */}
+            <section className="relative z-10 px-6 py-24 bg-black/40 border-y border-white/5 backdrop-blur-lg">
+                <div className="max-w-6xl mx-auto flex flex-col items-center">
+                    <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">
+                        Meet Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-violet-400">Ultimate Companion</span>
                     </h2>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {personas.map((persona, index) => (
-                            <div
-                                key={persona.id}
-                                className={`group relative p-8 rounded-2xl card-gradient hover:scale-105 transition-all duration-500 cursor-pointer ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                                    }`}
-                                style={{
-                                    transitionDelay: `${index * 100 + 600}ms`,
-                                }}
-                            >
-                                {/* Persona Avatar Placeholder */}
-                                <div className={`w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-br ${persona.color} flex items-center justify-center text-3xl font-bold shadow-lg group-hover:shadow-2xl transition-shadow duration-300`}>
-                                    {persona.name.charAt(0)}
-                                </div>
+                    <div className={`relative w-full max-w-4xl p-[1px] rounded-3xl bg-gradient-to-b from-indigo-500/30 to-transparent transition-all duration-1000 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}>
+                        <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500/20 to-violet-500/20 blur-2xl opacity-50 z-0 rounded-3xl"></div>
 
-                                <h3 className="text-2xl font-bold mb-2 text-center">{persona.name}</h3>
-                                <p className={`text-center bg-gradient-to-r ${persona.color} bg-clip-text text-transparent font-semibold mb-3`}>
-                                    {persona.tagline}
-                                </p>
-                                <p className="text-gray-400 text-center text-sm">{persona.description}</p>
+                        <div className="relative z-10 bg-[#0a0a0f] rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-12 overflow-hidden">
+                            {/* Decorative background grid inside card */}
+                            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
 
-                                {/* Glow effect on hover */}
-                                <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${persona.color} opacity-0 group-hover:opacity-10 blur-xl transition-opacity duration-500`} />
+                            <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full bg-gradient-to-br from-indigo-600 to-purple-800 flex items-center justify-center shadow-[0_0_40px_rgba(99,102,241,0.4)] flex-shrink-0 group">
+                                <span className="text-7xl font-bold text-white group-hover:scale-110 transition-transform duration-500">F</span>
+                                <div className="absolute inset-0 border-[3px] border-white/10 rounded-full animate-[spin_10s_linear_infinite]"></div>
+                                <div className="absolute inset-[-10px] border border-indigo-500/30 rounded-full animate-[spin_15s_linear_infinite_reverse]"></div>
                             </div>
-                        ))}
+
+                            <div className="flex-1 text-center md:text-left z-10">
+                                <h3 className="text-4xl font-bold mb-2">The Friend</h3>
+                                <p className="text-xl text-indigo-400 font-medium mb-6">Strategy, Courage, Discipline & Execution</p>
+                                <p className="text-gray-400 text-lg leading-relaxed mb-8">
+                                    No longer do you need to seek separate counsel. "The Friend" dynamically synthesizes the calculated strategy of Chanakya, the fearless charge of Subhas Chandra Bose, the unshakeable stoicism of Marcus Aurelius, and the battlefield dominance of Napoleon.
+                                </p>
+
+                                <div className="flex flex-wrap gap-3 justify-center md:justify-start">
+                                    {['Political Strategy', 'Revolutionary Thinking', 'Stoicism', 'Tactical Thinking'].map(skill => (
+                                        <span key={skill} className="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-sm font-medium text-gray-300">
+                                            {skill}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
             {/* How It Works Section */}
-            <section className="relative z-10 px-6 py-20 lg:px-12">
+            <section className="relative z-10 px-6 py-32 lg:px-12">
                 <div className="max-w-5xl mx-auto">
-                    <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
-                        How It <span className="gradient-text">Works</span>
+                    <h2 className="text-4xl md:text-5xl font-bold text-center mb-24">
+                        The <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-violet-400">Process</span>
                     </h2>
 
-                    <div className="space-y-12">
+                    <div className="grid md:grid-cols-3 gap-8 relative">
+                        {/* Connecting line for desktop */}
+                        <div className="hidden md:block absolute top-[40px] left-[10%] right-[10%] h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent z-0"></div>
+
                         {steps.map((step, index) => (
                             <div
                                 key={step.number}
-                                className={`flex flex-col md:flex-row items-center gap-8 transition-all duration-1000 ${mounted ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
-                                    }`}
-                                style={{ transitionDelay: `${index * 200 + 1000}ms` }}
+                                className={`relative z-10 flex flex-col items-center text-center transition-all duration-1000 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+                                style={{ transitionDelay: `${index * 150 + 400}ms` }}
                             >
-                                <div className="flex-shrink-0">
-                                    <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-indigo-600 to-violet-600 flex items-center justify-center shadow-2xl">
-                                        <span className="text-4xl font-bold">{step.number}</span>
-                                    </div>
+                                <div className="w-20 h-20 rounded-2xl bg-[#0a0a0f] border border-white/10 flex items-center justify-center shadow-xl shadow-indigo-500/10 mb-8 relative group">
+                                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-600/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                    <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-white/50">{step.number}</span>
                                 </div>
 
-                                <div className="flex-1 text-center md:text-left">
-                                    <h3 className="text-3xl font-bold mb-3">{step.title}</h3>
-                                    <p className="text-gray-400 text-lg">{step.description}</p>
-                                </div>
-
-                                {index < steps.length - 1 && (
-                                    <div className="hidden md:block w-24 h-1 bg-gradient-to-r from-indigo-600 to-violet-600 rounded-full" />
-                                )}
+                                <h3 className="text-xl font-bold mb-3 text-white/90">{step.title}</h3>
+                                <p className="text-gray-400 leading-relaxed text-sm">{step.description}</p>
                             </div>
                         ))}
                     </div>
 
-                    <div className="text-center mt-16">
-                        <Link href="/persona-selection" className="btn-primary">
-                            Begin Your Journey
+                    <div className="text-center mt-20">
+                        <Link href="/training" className="inline-flex items-center gap-2 group text-indigo-400 hover:text-indigo-300 transition-colors font-medium">
+                            Ready to commence?
+                            <span className="group-hover:translate-x-1 transition-transform">→</span>
                         </Link>
                     </div>
                 </div>
             </section>
 
             {/* Footer */}
-            <footer className="relative z-10 px-6 py-12 border-t border-white/10 mt-20">
-                <div className="max-w-7xl mx-auto text-center text-gray-500">
-                    <p className="mb-2">© 2025 GhostSkill. All rights reserved.</p>
-                    <p className="text-sm">This is a mockup and not a real product.</p>
+            <footer className="relative z-10 px-6 py-12 border-t border-white/5 bg-black/60">
+                <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between text-gray-500 text-sm">
+                    <p>© 2026 GhostSkill. All rights reserved.</p>
+                    <div className="flex gap-4 mt-4 md:mt-0">
+                        <a href="#" className="hover:text-white transition-colors">Privacy</a>
+                        <a href="#" className="hover:text-white transition-colors">Terms</a>
+                    </div>
                 </div>
             </footer>
         </div>

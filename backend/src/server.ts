@@ -5,9 +5,13 @@ import chatRoutes from './routes/chat.routes';
 import personaRoutes from './routes/persona.routes';
 import reflectionRoutes from './routes/reflection.routes';
 import { chatLogger } from './utils/chat-logger';
+import { initializeSchema } from './database';
 
 // Load environment variables
 dotenv.config();
+
+// Initialize SQLite database (creates file + tables if not present)
+initializeSchema();
 
 const app: Application = express();
 const PORT = process.env.PORT || 5000;
@@ -70,7 +74,7 @@ app.listen(PORT, async () => {
     console.log(`🚀 GhostSkill API server running on port ${PORT}`);
     console.log(`📍 Environment: ${process.env.NODE_ENV || 'development'}`);
     console.log(`🌐 CORS enabled for: ${process.env.FRONTEND_URL || 'http://localhost:3000'}`);
-    
+
     // Initialize chat logger
     await chatLogger.init();
 });

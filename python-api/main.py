@@ -148,9 +148,10 @@ def load_napoleon_data():
 # Load all datasets on startup
 wisdom_database = {
     "chanakya": [],
-    "bose": [],  # Can share Chanakya + Gita
+    "bose": [],
     "aurelius": [],
-    "napoleon": []
+    "napoleon": [],
+    "friend": []
 }
 
 @app.on_event("startup")
@@ -181,10 +182,19 @@ async def load_all_data():
     # Napoleon gets his maxims
     wisdom_database["napoleon"] = load_napoleon_data()
     
+    # Friend gets everything combined
+    wisdom_database["friend"] = (
+        wisdom_database["chanakya"] + 
+        wisdom_database["bose"] + 
+        wisdom_database["aurelius"] + 
+        wisdom_database["napoleon"]
+    )
+    
     print(f"✅ Loaded {len(wisdom_database['chanakya'])} verses for Chanakya (Chanakya Niti + Arthashastra)")
     print(f"✅ Loaded {len(wisdom_database['bose'])} verses for Bose (Bhagavad Gita)")
     print(f"✅ Loaded {len(wisdom_database['aurelius'])} verses for Aurelius (Meditations + Gita)")
     print(f"✅ Loaded {len(wisdom_database['napoleon'])} maxims for Napoleon")
+    print(f"✅ Loaded {len(wisdom_database['friend'])} total wisdom texts for Friend")
     
     # Initialize AI search engine
     print("\n🤖 Initializing AI search engine...")

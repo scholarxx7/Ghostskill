@@ -6,3 +6,8 @@ dist/
 
 # Chat logs (beta feature)
 chat-logs/
+
+# SQLite database files
+database/*.db
+database/*.db-shm
+database/*.db-wal

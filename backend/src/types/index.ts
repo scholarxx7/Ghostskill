@@ -22,6 +22,8 @@ export interface ChatRequest {
     message: string;
     personaIds: string[];
     conversationId?: string;
+    aiEngine?: 'gemini' | 'ollama' | 'nlp';
+    ollamaModel?: string;
 }
 
 export interface PersonaResponse {
